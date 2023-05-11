@@ -1,11 +1,8 @@
-#Variant value
 import numpy
 import scipy
 from scipy import signal
 from scipy import signal, fft
 import matplotlib.pyplot as plt
-
-
 n = 500
 Fs = 1000
 F_max = 21
