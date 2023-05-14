@@ -154,6 +154,7 @@ for M in [4, 16, 64, 256]:
 
     delta = (numpy.max(filtered_signal) - numpy.min(filtered_signal)) / (M - 1)
     quantize_signal = delta * np.round(filtered_signal / delta)
+    kv_sign += [list(quantize_signal)]
     quantize_levels = numpy.arange(numpy.min(quantize_signal), numpy.max(quantize_signal) + 1, delta)
 
     quantize_bit = numpy.arange(0, M)
@@ -186,4 +187,43 @@ for M in [4, 16, 64, 256]:
     ax.step(numpy.arange(0, len(bits)), bits, linewidth=0.1)
     fig.savefig("figures\гистограмма_м=" + str(M) + ".png", dpi=600)
 
+    dispersion = numpy.var(quantize_signal - filtered_signal)
+    print("dispersion " + str(dispersion))
+    disp += [dispersion]
+    sign_noise = numpy.var(filtered_signal) / dispersion
+    sing_noice2 += [sign_noise]
 
+
+fig, ax = plt.subplots(1, 1, figsize=(21 / 2.54, 14 / 2.54))
+
+x = [4, 16, 64, 256]
+y = disp
+
+ax.plot(x, y, linewidth=1)
+
+fig.supxlabel("квантування", fontsize=14)
+fig.supylabel("Дисперсия", fontsize=14)
+fig.savefig("figures\prac4_disp.png", dpi=600)
+
+fig, ax = plt.subplots(1, 1, figsize=(21 / 2.54, 14 / 2.54))
+
+y = pd.DataFrame(sing_noice2)
+
+ax.plot(x, y, linewidth=1)
+
+fig.supxlabel("Крок дискредитац", fontsize=14)
+fig.supylabel("Отношение сигнал шум", fontsize=14)
+fig.savefig("figures\prac4_quant.png", dpi=600)
+
+fig, ax = plt.subplots(2, 2, figsize=(21 / 2.54, 14 / 2.54))
+
+s = 0
+for i in range(0, 2):
+    for j in range(0, 2):
+        ax[i][j].plot(time_check, kv_sign[s], linewidth=1)
+
+    s += 1
+
+fig.supxlabel("Час", fontsize=14)
+fig.supylabel("kv_sign", fontsize=14)
+fig.savefig("figures\prac4_kv_sign.png", dpi=600)
