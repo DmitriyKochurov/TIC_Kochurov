@@ -21,6 +21,7 @@ filtered_signal = scipy.signal.sosfiltfilt(parametr, generation)
 
 fig, ax = plt.subplots(figsize=(21 / 2.54, 14 / 2.54))
 ax.plot(time_check, filtered_signal, linewidth=1)
+
 ax.set_xlabel('«текст»', fontsize=14)
 ax.set_ylabel('«текст»', fontsize=14)
 plt.title('«текст»', fontsize=14)
@@ -141,3 +142,48 @@ ax.plot(x, y, linewidth=1)
 fig.supxlabel("Крок дискредитац", fontsize=14)
 fig.supylabel("Отношение сигнал шум", fontsize=14)
 fig.savefig("figures\prac3_picture6.png", dpi=600)
+
+kv_sign = []
+
+disp = []
+sing_noice2 = []
+
+for M in [4, 16, 64, 256]:
+    byte = []
+    signal_byte = []
+
+    delta = (numpy.max(filtered_signal) - numpy.min(filtered_signal)) / (M - 1)
+    quantize_signal = delta * np.round(filtered_signal / delta)
+    quantize_levels = numpy.arange(numpy.min(quantize_signal), numpy.max(quantize_signal) + 1, delta)
+
+    quantize_bit = numpy.arange(0, M)
+
+    quantize_bit = [format(bits, '0' + str(int(numpy.log(M) / numpy.log(2))) + 'b') for bits in quantize_bit]
+
+    quantize_table = numpy.c_[quantize_levels[:M], quantize_bit[:M]]
+
+    fig, ax = plt.subplots(figsize=(14 / 2.54, M / 2.54))
+
+    table = ax.table(cellText=quantize_table, colLabels=['Значення сигналу',
+                                                         'Кодова послідовність'], loc='center')
+    table.set_fontsize(14)
+    table.scale(1, 2)
+    ax.axis('off')
+
+    fig.savefig("figures\Таблиця_квантування_для_" + str(M) + "_рівнів.png", dpi=600)
+
+    for signal_value in quantize_signal:
+        for index, value in enumerate(quantize_levels[:M]):
+            if numpy.round(numpy.abs(signal_value - value), 0) == 0:
+                byte.append(quantize_bit[index])
+                break
+
+    print(byte)
+    bits = [int(item) for item in list(''.join(byte))]
+    print(bits)
+
+    fig, ax = plt.subplots(figsize=(21 / 2.54, 14 / 2.54))
+    ax.step(numpy.arange(0, len(bits)), bits, linewidth=0.1)
+    fig.savefig("figures\гистограмма_м=" + str(M) + ".png", dpi=600)
+
+
