@@ -9,9 +9,10 @@ from matplotlib import pyplot as plt
 
 def write_file(a, b, c):
     with open("results_sequence.txt", "a") as file:
+        print(a)
         file.write("Послідовність: ")
         for i in a:
-            file.write(str(i))
+            file.write(i)
 
         file.write("\n")
         file.write("Розмір поледовності: " + str(b) + " bit\n")
@@ -23,14 +24,12 @@ list1 = [1 for _ in range(10)]
 list0 = [0 for _ in range(N_sequence - 10)]
 original_sequence_1 = list1 + list0
 
-print(original_sequence_1)
-
 unique_chars = set(original_sequence_1)
 print(len(unique_chars))
 
 Original_sequence_size = len(original_sequence_1) * 8
 
-write_file(original_sequence_1, Original_sequence_size, unique_chars)
+write_file(''.join(str(str1) for str1 in original_sequence_1), Original_sequence_size, unique_chars)
 
 # 2
 list1 = ['K', 'o', 'c', 'h', 'u', 'r', 'o', 'v']
@@ -41,7 +40,7 @@ unique_chars = set(original_sequence_2)
 
 Original_sequence_size = len(original_sequence_2) * 8
 
-write_file(original_sequence_2, Original_sequence_size, unique_chars)
+write_file(''.join(str(str1) for str1 in original_sequence_2), Original_sequence_size, unique_chars)
 
 # 3
 list1 = ['K', 'o', 'c', 'h', 'u', 'r', 'o', 'v']
@@ -53,7 +52,7 @@ unique_chars = set(original_sequence_3)
 
 Original_sequence_size = len(original_sequence_3) * 8
 
-write_file(original_sequence_3, Original_sequence_size, unique_chars)
+write_file(''.join(str(str1) for str1 in original_sequence_3), Original_sequence_size, unique_chars)
 
 # 4
 
@@ -71,11 +70,10 @@ original_sequence_4 = ''.join(map(str, list))
 Original_sequence_size = len(original_sequence_4) * 8
 unique_chars = set(original_sequence_4)
 
-write_file(original_sequence_4, Original_sequence_size, unique_chars)
+write_file(''.join(str(str1) for str1 in original_sequence_4), Original_sequence_size, unique_chars)
 
 # 5
 
-pі = 0, 2
 
 list = ['K', 'o', '5', '2', '9']
 original_sequence_5 = [random.choice(list) if random.random() < 0.2 else '' for _ in range(N_sequence)]
@@ -85,7 +83,7 @@ sequence_str = ''.join(original_sequence_5)
 unique_chars = set(original_sequence_5)
 Original_sequence_size = len(original_sequence_5) * 8
 
-write_file(original_sequence_5, Original_sequence_size, unique_chars)
+write_file(''.join(str(str1) for str1 in original_sequence_5), Original_sequence_size, unique_chars)
 
 # 6
 list = ['K', 'o']
@@ -95,7 +93,7 @@ n_letters = int(0.4 * 0.2 * 100)
 n_digits = int(0.6 * 0.1 * 100)
 
 for i in range(n_letters):
-    list_100.append(random.choice(letters))
+    list_100.append(random.choice(list))
 for i in range(n_digits):
     list_100.append(random.choice(digits))
 
@@ -106,7 +104,7 @@ original_sequence_6 = "".join(list_100)
 unique_chars = set(original_sequence_6)
 Original_sequence_size = len(original_sequence_6) * 8
 
-write_file(original_sequence_6, Original_sequence_size, unique_chars)
+write_file(''.join(str(str1) for str1 in original_sequence_6), Original_sequence_size, unique_chars)
 
 # 7
 
@@ -122,7 +120,7 @@ original_sequence_7 = "".join(list_100)
 unique_chars = set(list_100)
 Original_sequence_size = len(original_sequence_7) * 8
 
-write_file(original_sequence_7, Original_sequence_size, unique_chars)
+write_file(''.join(str(str1) for str1 in original_sequence_7), Original_sequence_size, unique_chars)
 
 # 8
 original_sequence_8 = '1' * N_sequence
@@ -141,7 +139,7 @@ results = []
 
 for sequence in original_sequences:
     with open("sequence.txt", "a") as file:
-        file.write("Послідовність: " + str(sequence) + "\n")
+        file.write("Послідовність: " + str(''.join(str(str1) for str1 in sequence) + "\n"))
 
     counts = collections.Counter(sequence)
     probability = {symbol: count / N_sequence for symbol, count in counts.items()}
