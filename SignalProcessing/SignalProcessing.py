@@ -22,11 +22,11 @@ filtered_signal = scipy.signal.sosfiltfilt(parametr, generation)
 fig, ax = plt.subplots(figsize=(21 / 2.54, 14 / 2.54))
 ax.plot(time_check, filtered_signal, linewidth=1)
 
-ax.set_xlabel('«текст»', fontsize=14)
-ax.set_ylabel('«текст»', fontsize=14)
-plt.title('«текст»', fontsize=14)
+ax.set_xlabel('Час(секунды)', fontsize=14)
+ax.set_ylabel('Амплітуда сигналу', fontsize=14)
+plt.title('Сигнал з максимальною частотою F_max = ' + str(F_max), fontsize=14)
 
-# fig.savefig("./SignalProcessing/title.png", dpi=600)
+fig.savefig("./SignalProcessing/prac2_picture1.png", dpi=600)
 
 spectrum = scipy.fft.fft(filtered_signal)
 
@@ -38,11 +38,11 @@ checks = scipy.fft.fftfreq(n, 1 / n)
 fftshift = scipy.fft.fftshift(checks)
 
 ax.plot(checks, spectrum, linewidth=1)
-ax.set_xlabel('«текст»', fontsize=14)
-ax.set_ylabel('«текст»', fontsize=14)
-plt.title('«текст»', fontsize=14)
+ax.set_xlabel('Частота(Гц)', fontsize=14)
+ax.set_ylabel('Амплітуда спектру', fontsize=14)
+plt.title('Спектр сигналу з максимальною частотою F_max = ' + str(F_max), fontsize=14)
 
-# fig.savefig("/SignalProcessing/title2.png", dpi=600)
+fig.savefig("/SignalProcessing/prac2_picture2.png", dpi=600)
 
 discrete_signals = []
 discrete_spectrum = []
@@ -82,8 +82,9 @@ for i in range(0, 2):
 
     s += 1
 
-fig.supxlabel("Час", fontsize=14)
-fig.supylabel("Амплитудща", fontsize=14)
+fig.supxlabel("Час(секунди)", fontsize=14)
+fig.supylabel("Амплытуда сигналу", fontsize=14)
+plt.title('Сигнал з кроком дискретизації Dt = (2,4,6,8)', fontsize=14)
 fig.savefig("figures\prac3_pictures1.png", dpi=600)
 
 fig, ax = plt.subplots(2, 2, figsize=(21 / 2.54, 14 / 2.54))
@@ -93,8 +94,9 @@ for i in range(0, 2):
         ax[i][j].plot(time_check, discrete_spectrum[s], linewidth=1)
 
     s += 1
-fig.supxlabel("Час", fontsize=14)
-fig.supylabel("Spectrum", fontsize=14)
+fig.supxlabel("Частота(Гц)", fontsize=14)
+fig.supylabel("Амплітуда спектру", fontsize=14)
+plt.title('Спектри сигналів з кроком дискретизації Dt = (2,4,6,8)', fontsize=14)
 fig.savefig("figures\prac3_pictures2.png", dpi=600)
 
 fig, ax = plt.subplots(2, 2, figsize=(21 / 2.54, 14 / 2.54))
@@ -105,8 +107,9 @@ for i in range(0, 2):
         ax[i][j].plot(time_check, discretes_signal_after_filers[s], linewidth=1)
 
     s += 1
-fig.supxlabel("Час", fontsize=14)
-fig.supylabel("Видновлення", fontsize=14)
+fig.supxlabel("Час(секунди)", fontsize=14)
+fig.supylabel("Амплітуда сигналу", fontsize=14)
+plt.title('Відновлені аналогові з кроком дискретизації Dt = (2,4,6,8)', fontsize=14)
 fig.savefig("figures\prac3_pictures3.png", dpi=600)
 
 fig, ax = plt.subplots(2, 2, figsize=(21 / 2.54, 14 / 2.54))
@@ -117,8 +120,9 @@ for i in range(0, 2):
         ax[i][j].plot(time_check, diff[s], linewidth=1)
 
     s += 1
-fig.supxlabel("Час", fontsize=14)
-fig.supylabel("Видновлення", fontsize=14)
+fig.supxlabel("Час(секунди)", fontsize=14)
+fig.supylabel("Амплітуда сигналу", fontsize=14)
+plt.title('Відновлені аналогові з кроком дискретизації Dt = (2,4,6,8)', fontsize=14)
 fig.savefig("figures\prac3_pictures4.png", dpi=600)
 
 fig, ax = plt.subplots(1, 1, figsize=(21 / 2.54, 14 / 2.54))
@@ -129,8 +133,9 @@ print("diff2 \n" + str(diff2))
 
 ax.plot(x, y, linewidth=1)
 
-fig.supxlabel("Крок дискредитац", fontsize=14)
-fig.supylabel("Дисперсия", fontsize=14)
+fig.supxlabel("Крок дискредитації", fontsize=14)
+fig.supylabel("Дисперсія", fontsize=14)
+plt.title('Залежність дисперсії від кроку дискретизації', fontsize=14)
 fig.savefig("figures\prac3_picture5.png", dpi=600)
 
 fig, ax = plt.subplots(1, 1, figsize=(21 / 2.54, 14 / 2.54))
@@ -139,8 +144,9 @@ y = pd.DataFrame(signs_noise)
 
 ax.plot(x, y, linewidth=1)
 
-fig.supxlabel("Крок дискредитац", fontsize=14)
-fig.supylabel("Отношение сигнал шум", fontsize=14)
+fig.supxlabel("Крок дискредитації", fontsize=14)
+fig.supylabel("ССШ", fontsize=14)
+plt.title('Залежність співвідношення сигнал-шум від кроку дискретизації', fontsize=14)
 fig.savefig("figures\prac3_picture6.png", dpi=600)
 
 kv_sign = []
@@ -185,6 +191,9 @@ for M in [4, 16, 64, 256]:
 
     fig, ax = plt.subplots(figsize=(21 / 2.54, 14 / 2.54))
     ax.step(numpy.arange(0, len(bits)), bits, linewidth=0.1)
+    fig.supxlabel("Біти", fontsize=14)
+    fig.supylabel("Амплітуда сигналу", fontsize=14)
+    plt.title("Кодова послідовність сигналу при кількості рівнів квантування " + str(M))
     fig.savefig("figures\гистограмма_м=" + str(M) + ".png", dpi=600)
 
     dispersion = numpy.var(quantize_signal - filtered_signal)
@@ -201,8 +210,9 @@ y = disp
 
 ax.plot(x, y, linewidth=1)
 
-fig.supxlabel("квантування", fontsize=14)
-fig.supylabel("Дисперсия", fontsize=14)
+fig.supxlabel("Кількість рівнів квантування", fontsize=14)
+fig.supylabel("Дисперсія", fontsize=14)
+plt.title("Залежність дисперсії від кількості рівнів квантування")
 fig.savefig("figures\prac4_disp.png", dpi=600)
 
 fig, ax = plt.subplots(1, 1, figsize=(21 / 2.54, 14 / 2.54))
@@ -211,8 +221,9 @@ y = pd.DataFrame(sing_noice2)
 
 ax.plot(x, y, linewidth=1)
 
-fig.supxlabel("Крок дискредитац", fontsize=14)
-fig.supylabel("Отношение сигнал шум", fontsize=14)
+fig.supxlabel("Кількість рівнів квантування", fontsize=14)
+fig.supylabel("ССШ", fontsize=14)
+plt.title("Залежність ССШ від кількості рівнів квантування")
 fig.savefig("figures\prac4_quant.png", dpi=600)
 
 fig, ax = plt.subplots(2, 2, figsize=(21 / 2.54, 14 / 2.54))
@@ -224,6 +235,7 @@ for i in range(0, 2):
 
     s += 1
 
-fig.supxlabel("Час", fontsize=14)
-fig.supylabel("kv_sign", fontsize=14)
+fig.supxlabel("Крок дискредитац", fontsize=14)
+fig.supylabel("Отношение сигнал шум", fontsize=14)
+plt.title("Цифрові сигнали з рівнями квантування (4, 16, 64, 256)")
 fig.savefig("figures\prac4_kv_sign.png", dpi=600)
