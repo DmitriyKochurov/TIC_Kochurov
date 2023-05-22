@@ -194,7 +194,7 @@ for M in [4, 16, 64, 256]:
     fig.supxlabel("Біти", fontsize=14)
     fig.supylabel("Амплітуда сигналу", fontsize=14)
     plt.title("Кодова послідовність сигналу при кількості рівнів квантування " + str(M))
-    fig.savefig("figures\гистограмма_м=" + str(M) + ".png", dpi=600)
+    fig.savefig("figures\гістограма_м=" + str(M) + ".png", dpi=600)
 
     dispersion = numpy.var(quantize_signal - filtered_signal)
     print("dispersion " + str(dispersion))
