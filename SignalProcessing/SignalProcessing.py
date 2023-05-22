@@ -26,7 +26,7 @@ ax.set_xlabel('Час(секунды)', fontsize=14)
 ax.set_ylabel('Амплітуда сигналу', fontsize=14)
 plt.title('Сигнал з максимальною частотою F_max = ' + str(F_max), fontsize=14)
 
-fig.savefig("./SignalProcessing/prac2_picture1.png", dpi=600)
+fig.savefig("figures/prac2_picture1.png", dpi=600)
 
 spectrum = scipy.fft.fft(filtered_signal)
 
@@ -42,7 +42,7 @@ ax.set_xlabel('Частота(Гц)', fontsize=14)
 ax.set_ylabel('Амплітуда спектру', fontsize=14)
 plt.title('Спектр сигналу з максимальною частотою F_max = ' + str(F_max), fontsize=14)
 
-fig.savefig("/SignalProcessing/prac2_picture2.png", dpi=600)
+fig.savefig("figures/prac2_picture2.png", dpi=600)
 
 discrete_signals = []
 discrete_spectrum = []
@@ -219,13 +219,12 @@ fig, ax = plt.subplots(1, 1, figsize=(21 / 2.54, 14 / 2.54))
 
 y = pd.DataFrame(sing_noice2)
 
-ax.plot(x, y, linewidth=1)
 
+ax.plot(x, y, linewidth=1)
 fig.supxlabel("Кількість рівнів квантування", fontsize=14)
 fig.supylabel("ССШ", fontsize=14)
 plt.title("Залежність ССШ від кількості рівнів квантування")
 fig.savefig("figures\prac4_quant.png", dpi=600)
-
 fig, ax = plt.subplots(2, 2, figsize=(21 / 2.54, 14 / 2.54))
 
 s = 0
