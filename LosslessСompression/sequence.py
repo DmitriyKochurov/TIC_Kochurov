@@ -3,6 +3,8 @@ import collections
 import math
 import random
 import string
+import threading
+from time import sleep
 
 from matplotlib import pyplot as plt
 
@@ -16,7 +18,7 @@ def write_file(a, b, c):
 
         file.write("\n")
         file.write("Розмір поледовності: " + str(b) + " bit\n")
-        file.write("Розмір алфавіту: " + str(len(c)) + " \n")
+        file.write("Розмір алфавіту: " + str(len(c)) + " \n\n")
 
 
 N_sequence = 100
@@ -74,9 +76,14 @@ write_file(''.join(str(str1) for str1 in original_sequence_4), Original_sequence
 
 # 5
 
-
 list = ['K', 'o', '5', '2', '9']
-original_sequence_5 = [random.choice(list) if random.random() < 0.2 else '' for _ in range(N_sequence)]
+
+original_sequence_5 = []
+
+for _ in range(N_sequence):
+    if random.random() < 0.2:
+        original_sequence_5.append(random.choice(list))
+
 random.shuffle(original_sequence_5)
 
 sequence_str = ''.join(original_sequence_5)
@@ -89,13 +96,15 @@ write_file(''.join(str(str1) for str1 in original_sequence_5), Original_sequence
 list = ['K', 'o']
 digits = ['5', '2', '9']
 list_100 = []
-n_letters = int(0.4 * 0.2 * 100)
-n_digits = int(0.6 * 0.1 * 100)
+n_letters = int(0.3 * 0.2 * 100)
+n_digits = int(0.7 * 0.1 * 100)
 
 for i in range(n_letters):
     list_100.append(random.choice(list))
 for i in range(n_digits):
     list_100.append(random.choice(digits))
+
+
 
 random.shuffle(list_100)
 
@@ -172,7 +181,7 @@ for sequence in original_sequences:
         file.write("Ентропія: " + str(entropy) + "\n")
         file.write("Надмірність джерела: " + str(source_excess) + "\n")
 
-    results.append([len(sequence), round((entropy), 2), round((source_excess), 2), uniformity])
+    results.append([len(set(sequence)), round((entropy), 2), round((source_excess), 2), uniformity])
 
 
 fig, ax = plt.subplots(figsize=(14 / 1.54, 8 / 1.54))

@@ -14,6 +14,7 @@ def main():
     fig, ax = plt.subplots(figsize=(14 / 1.54, 8 / 1.54))
 
     headers = ['Ентропія', 'КС RLE', 'КС LZW']
+    i = 0
 
     # зчитати послідовності з sequence.txt у original_sequences
     with open("sequence.txt", "r") as file:
@@ -21,17 +22,23 @@ def main():
         original_sequences = [sequence.strip("Послідовність: ") for sequence in original_sequences]
         print(original_sequences)
         row = [('Послідовність ' + str(i+1)) for i in range(len(original_sequences))]
+        i = 1
         for sequence in original_sequences:
             counts = collections.Counter(sequence)
             probability = {symbol: count / N_sequence for symbol, count in counts.items()}
             entropy = -sum(p * math.log2(p) for p in probability.values())
-            encode, cr = encode_rle(sequence,entropy)
-            decode = decode_rle(encode)
+            print("SEQUENCE NUMBER " + str(i))
+            print(sequence)
+            encode, res, cr = encode_rle(sequence,entropy)
+            decode = decode_rle(res)
 
             encode2, cr2 = encode_lzw(sequence)
+            print(encode2)
             decode2 = decode_lzw(encode2)
+            print(decode2)
 
             results.append([round((entropy), 2), cr, cr2])
+            i += 1
 
     ax.axis('off')
     table = ax.table(cellText=results, colLabels=headers, rowLabels=row,
@@ -42,18 +49,38 @@ def main():
     fig.savefig("Результати стиснення методами RLE та LZW")
 
 
+# def encode_rle(sequence):
+#     count = 1
+#     result = []
+#     for j, item in enumerate(sequence):
+#         if j == 0:
+#             continue
+#         elif item == sequence[j - 1]:
+#             count += 1
+#         else:
+#             result.append((sequence[j - 1], count))
+#     result.append((sequence[len(sequence) - 1], count))
+#     encoded = []
+#     for j, item in enumerate(result):
+#         encoded.append(f"{item[1]}{item[0]}")
+#     return "".join(encoded), result
+
 def encode_rle(sequence, entropy):
-    result = ""
     count = 1
-    for i in range(len(sequence) - 1):
-        if sequence[i] == sequence[i + 1]:
+    result = []
+    for j, item in enumerate(sequence):
+        if j == 0:
+            continue
+        elif item == sequence[j - 1]:
             count += 1
         else:
-            result += str(count) + sequence[i]
-            count = 1
-    result += str(count) + sequence[-1]
+            result.append((sequence[j - 1], count))
+    result.append((sequence[len(sequence) - 1], count))
+    encoded = []
+    for j, item in enumerate(result):
+        encoded.append(f"{item[1]}{item[0]}")
 
-    compression_ratio_RLE = round((len(sequence) / len(result)), 2)
+    compression_ratio_RLE = round((len(sequence) / len("".join(encoded))), 2)
 
     if compression_ratio_RLE < 1:
         compression_ratio_RLE = '-'
@@ -65,22 +92,20 @@ def encode_rle(sequence, entropy):
         file.write("Розмір оригінальної послідовності: " + str(len(sequence) * 8) + " bits\n")
         file.write("Ентропія: " + str(entropy) + "\n")
         file.write("___________Кодування_RLE____________\n")
-        file.write("Закодована RLE послідовність: " + str(result) + "\n")
-        file.write("Розмір закодованої послідовності: " + str(len(result) * 8) + " bits\n")
+        file.write("Закодована RLE послідовність: " + str("".join(encoded)) + "\n")
+        file.write("Розмір закодованої послідовності: " + str(len("".join(encoded)) * 8) + " bits\n")
         file.write("Коефіціент стиснення RLE: " + str(compression_ratio_RLE) + " \n")
-        file.write("Декодована RLE послідовність: " + str(result) + "\n")
-        file.write("Розмір декодованої послідовності: " + str(len(result) * 8) + " bits\n")
+        file.write("Декодована RLE послідовність: " + str("".join(encoded)) + "\n")
+        file.write("Розмір декодованої послідовності: " + str(len("".join(encoded)) * 8) + " bits\n\n")
 
-    return result, compression_ratio_RLE
+    return "".join(encoded), result, compression_ratio_RLE
 
 
 def decode_rle(sequence):
-    result = ""
-    for i in range(int(len(sequence) / 2)):
-
-        result += sequence[2 * i + 1] * int(sequence[2 * i])
-
-    return result
+    result = []
+    for item in sequence:
+        result.append(item[0] * item[1])
+    return "".join(result)
 
 
 def encode_lzw(sequence):
