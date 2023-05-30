@@ -2,6 +2,9 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/LosslessСompression/ results_sequence.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/LosslessСompression/results_AC_CH.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/LosslessСompression/results_rle_lzw.txt" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/LosslessСompression/results_sequence.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/LosslessСompression/sequence.txt" charset="windows-1251" />
   </component>
 </project>

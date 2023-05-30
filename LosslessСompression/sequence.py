@@ -151,7 +151,7 @@ for sequence in original_sequences:
         file.write("Послідовність: " + str(''.join(str(str1) for str1 in sequence) + "\n"))
 
     counts = collections.Counter(sequence)
-    probability = {symbol: count / N_sequence for symbol, count in counts.items()}
+    probability = {symbol: count / len(sequence) for symbol, count in counts.items()}
 
     mean_probability = sum(probability.values()) / len(probability)
 
@@ -168,8 +168,7 @@ for sequence in original_sequences:
     else:
         source_excess = 1
 
-    probability_str = ', '.join([f"{symbol}={prob:.4f}" for symbol, prob in
-                                 probability.items()])
+    probability_str = ', '.join([f"{symbol}={prob:.4f}" for symbol, prob in probability.items()])
 
     with open("results_sequence.txt", "a") as file:
         file.write("Послідовність: " + str(sequence) + "\n")
@@ -179,7 +178,7 @@ for sequence in original_sequences:
         file.write("Середне арифметичне: " + str(mean_probability) + "\n")
         file.write("Ймовірність розподілу символів: " + str(uniformity) + "\n")
         file.write("Ентропія: " + str(entropy) + "\n")
-        file.write("Надмірність джерела: " + str(source_excess) + "\n")
+        file.write("Надмірність джерела: " + str(source_excess) + "\n\n")
 
     results.append([len(set(sequence)), round((entropy), 2), round((source_excess), 2), uniformity])
 

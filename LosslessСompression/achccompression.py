@@ -118,32 +118,32 @@ def encode_ch(uniq_chars, probabilitys, sequence):
             final.append([left[0] + right[0], tot])
             final.sort(key=lambda x: x[1])
 
-    symbol_code = []
-    tree.reverse()
-    alphabet.sort()
-    for i in range(len(alphabet)):
-        code = ""
-        for j in range(len(tree)):
-            if alphabet[i] in tree[j][0]:
-                code = code + '0'
-                if alphabet[i] == tree[j][0]:
-                    break
-            else:
-                code = code + '1'
-                if alphabet[i] == tree[j][1]:
-                    break
-        symbol_code.append([alphabet[i], code])
+        symbol_code = []
+        tree.reverse()
+        alphabet.sort()
+        for i in range(len(alphabet)):
+            code = ""
+            for j in range(len(tree)):
+                if alphabet[i] in tree[j][0]:
+                    code = code + '0'
+                    if alphabet[i] == tree[j][0]:
+                        break
+                else:
+                    code = code + '1'
+                    if alphabet[i] == tree[j][1]:
+                        break
+            symbol_code.append([alphabet[i], code])
 
-    encode = ""
-    for c in sequence:
-        encode += [symbol_code[i][1] for i in range(len(alphabet)) if symbol_code[i][0] == c][0]
+        encode = ""
+        for c in sequence:
+            encode += [symbol_code[i][1] for i in range(len(alphabet)) if symbol_code[i][0] == c][0]
 
     return [encode, symbol_code], encode
 
 def decode_ch(encoded_sequence):
     encode = list(encoded_sequence[0])
     symbol_code = encoded_sequence[1]
-    sequence = []
+    sequence = ''
     count = 0
     flag = 0
     for i in range(len(encode)):
@@ -182,7 +182,7 @@ def main():
             unique_chars = set(sequence)
             sequence_alphabet_size = len(unique_chars)
             counts = collections.Counter(sequence)
-            probability = {symbol: count / N_sequence for symbol, count in counts.items()}
+            probability = {symbol: count / sequence_length for symbol, count in counts.items()}
             entropy = -sum(p * math.log2(p) for p in probability.values())
 
             with open("results_AC_CH.txt", "a") as file:
