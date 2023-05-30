@@ -37,7 +37,8 @@ checks = scipy.fft.fftfreq(n, 1 / n)
 
 fftshift = scipy.fft.fftshift(checks)
 
-ax.plot(checks, spectrum, linewidth=1)
+fig, ax = plt.subplots(figsize=(21 / 2.54, 14 / 2.54))
+ax.plot(fftshift, mod, linewidth=1)
 ax.set_xlabel('Частота(Гц)', fontsize=14)
 ax.set_ylabel('Амплітуда спектру', fontsize=14)
 plt.title('Спектр сигналу з максимальною частотою F_max = ' + str(F_max), fontsize=14)
