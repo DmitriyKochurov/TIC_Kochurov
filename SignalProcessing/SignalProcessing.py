@@ -80,7 +80,7 @@ for i in range(0, 2):
     for j in range(0, 2):
         ax[i][j].plot(time_check, discrete_signals[s], linewidth=1)
 
-    s += 1
+        s += 1
 
 fig.supxlabel("Час(секунди)", fontsize=14)
 fig.supylabel("Амплытуда сигналу", fontsize=14)
@@ -92,8 +92,7 @@ s = 0
 for i in range(0, 2):
     for j in range(0, 2):
         ax[i][j].plot(time_check, discrete_spectrum[s], linewidth=1)
-
-    s += 1
+        s += 1
 fig.supxlabel("Частота(Гц)", fontsize=14)
 fig.supylabel("Амплітуда спектру", fontsize=14)
 plt.title('Спектри сигналів з кроком дискретизації Dt = (2,4,6,8)', fontsize=14)
@@ -106,7 +105,7 @@ for i in range(0, 2):
     for j in range(0, 2):
         ax[i][j].plot(time_check, discretes_signal_after_filers[s], linewidth=1)
 
-    s += 1
+        s += 1
 fig.supxlabel("Час(секунди)", fontsize=14)
 fig.supylabel("Амплітуда сигналу", fontsize=14)
 plt.title('Відновлені аналогові з кроком дискретизації Dt = (2,4,6,8)', fontsize=14)
@@ -119,7 +118,7 @@ for i in range(0, 2):
     for j in range(0, 2):
         ax[i][j].plot(time_check, diff[s], linewidth=1)
 
-    s += 1
+        s += 1
 fig.supxlabel("Час(секунди)", fontsize=14)
 fig.supylabel("Амплітуда сигналу", fontsize=14)
 plt.title('Відновлені аналогові з кроком дискретизації Dt = (2,4,6,8)', fontsize=14)
