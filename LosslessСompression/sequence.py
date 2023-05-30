@@ -80,7 +80,7 @@ list = ['K', 'o', '5', '2', '9']
 
 original_sequence_5 = []
 
-for _ in range(N_sequence):
+while len(original_sequence_5) != 100:
     if random.random() < 0.2:
         original_sequence_5.append(random.choice(list))
 
@@ -96,8 +96,8 @@ write_file(''.join(str(str1) for str1 in original_sequence_5), Original_sequence
 list = ['K', 'o']
 digits = ['5', '2', '9']
 list_100 = []
-n_letters = int(0.3 * 0.2 * 100)
-n_digits = int(0.7 * 0.1 * 100)
+n_letters = int(0.3 * 100)
+n_digits = int(0.7 * 100)
 
 for i in range(n_letters):
     list_100.append(random.choice(list))
