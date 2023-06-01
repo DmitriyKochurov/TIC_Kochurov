@@ -176,6 +176,7 @@ def main():
     with open("sequence.txt", "r") as file:
         original_sequences = file.read().split("\n")
         original_sequences = [sequence.strip("Послідовність: ") for sequence in original_sequences]
+
         for sequence in original_sequences:
             sequence = sequence[:10]
             sequence_length = len(sequence)
@@ -187,25 +188,35 @@ def main():
 
             with open("results_AC_CH.txt", "a") as file:
                 file.write("////////////////////////////\n")
-                file.write("Оригінальна послідовність: " + str(original_sequences) + "\n")
+                file.write("Оригінальна послідовність: " + str(sequence) + "\n")
                 file.write("Ентропія : " + str(entropy) + "\n")
                 file.write("\n")
 
-            encoded_data_ac, encoded_sequence_ac = encode_ac(unique_chars, probability, sequence_alphabet_size,
-                                                             sequence)
-            bps_ac = len(encoded_sequence_ac) / sequence_length
-            print("Дані закодованої АС послідовності :" + str(encoded_data_ac))
-            print("Закодована AC послідовність: " + str(encoded_sequence_ac))
-            print("Значення bps при кодуванні АС: " + str(bps_ac))
+                encoded_data_ac, encoded_sequence_ac = encode_ac(unique_chars, probability, sequence_alphabet_size,
+                                                                 sequence)
+                bps_ac = len(encoded_sequence_ac) / sequence_length
+                file.write("__________Арифметичне кодування___________")
+                file.write("Дані закодованої АС послідовності :" + str(encoded_data_ac) + "\n")
+                file.write("Закодована AC послідовність: " + str(encoded_sequence_ac) + "\n")
+                file.write("Значення bps при кодуванні АС: " + str(bps_ac) + "\n")
 
-            decoded_sequence = decode_ac(encoded_data_ac, 10)
-            print("Декодована АС послідовність: " + str(decoded_sequence))
+                decoded_sequence = decode_ac(encoded_data_ac, 10)
+                file.write("Декодована АС послідовність: " + str(decoded_sequence) + "\n\n")
 
-            print(sequence)
-            encoded_data_ch, encoded_sequence_ch = encode_ch(unique_chars, probability, sequence)
-            print(encoded_data_ch)
-            decoded_sequence = decode_ch(encoded_data_ch)
-            print(decoded_sequence)
+                encoded_data_ch, encoded_sequence_ch = encode_ch(unique_chars, probability, sequence)
+                decoded_sequence = decode_ch(encoded_data_ch)
+                bps_ch = len(encoded_sequence_ch) / sequence_length
+                file.write("__________Кодування Хаффмана___________" + "\n")
+                file.write("    Алфавіт         Код символу" + "\n")
+                for i in encoded_data_ch[1]:
+                    file.write(f"    {i[0]}         {i[1]}" + "\n")
+                file.write("    Алфавіт         Код символу" + "\n")
+                file.write("Дані закодованої HC послідовності :" + str(encoded_data_ac) + "\n")
+                file.write("Закодована HC послідовність: " + str(encoded_sequence_ac) + "\n")
+                file.write("Значення bps при кодуванні HC: " + str(bps_ch) + "\n")
+                file.write("Декодована HC послідовність: " + str(decoded_sequence) + "\n\n")
+
+
 
 
 
